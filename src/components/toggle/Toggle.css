@@ -1,0 +1,59 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  cursor: pointer;
+  color: #111827;
+}
+
+.toggle__text {
+  display: grid;
+  gap: 0.1rem;
+  text-align: left;
+}
+
+.toggle__label {
+  font-weight: 700;
+}
+
+.toggle__hint {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.toggle__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle__track {
+  width: 3.25rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: #cbd5e1;
+  display: flex;
+  transition: background-color 120ms ease;
+}
+
+.toggle__thumb {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: #f8fafc;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+  transition: transform 120ms ease;
+}
+
+.toggle__input:checked + .toggle__track {
+  background: #4f46e5;
+}
+
+.toggle__input:checked + .toggle__track .toggle__thumb {
+  transform: translateX(1.45rem);
+}
+
+.toggle__input:focus-visible + .toggle__track {
+  outline: 3px solid rgba(99, 102, 241, 0.3);
+  outline-offset: 3px;
+}
