@@ -1,7 +1,8 @@
 import type { ComponentType } from 'react'
-import { ButtonPreview, TogglePreview } from './componentPreviews'
+import { ButtonPreview, CheckboxPreview, TodoAppPreview, TogglePreview } from './componentPreviews'
 
-type ComponentDefinition = {
+export type ShowcaseItem = {
+  kind: 'component' | 'page'
   slug: string
   name: string
   description: string
@@ -11,8 +12,9 @@ type ComponentDefinition = {
   Preview: ComponentType
 }
 
-export const componentCatalog: ComponentDefinition[] = [
+export const componentCatalog: ShowcaseItem[] = [
   {
+    kind: 'component',
     slug: 'button',
     name: 'Button',
     description: 'A simple accent button with a small shadow and keyboard focus ring.',
@@ -22,6 +24,7 @@ export const componentCatalog: ComponentDefinition[] = [
     Preview: ButtonPreview,
   },
   {
+    kind: 'component',
     slug: 'toggle',
     name: 'Toggle',
     description: 'A lightweight labeled switch for boolean preferences.',
@@ -31,4 +34,30 @@ export const componentCatalog: ComponentDefinition[] = [
       "<Toggle label=\"Email alerts\" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} />",
     Preview: TogglePreview,
   },
+  {
+    kind: 'component',
+    slug: 'checkbox',
+    name: 'Checkbox',
+    description: 'A checkbox field with room for a label and supporting text.',
+    route: '/components/checkbox',
+    copyPath: 'src/components/checkbox',
+    usage:
+      "<Checkbox label=\"Finish the wireframes\" description=\"Mark an item as done.\" checked={done} onChange={(event) => setDone(event.target.checked)} />",
+    Preview: CheckboxPreview,
+  },
 ]
+
+export const pageCatalog: ShowcaseItem[] = [
+  {
+    kind: 'page',
+    slug: 'todo-app',
+    name: 'Todo App',
+    description: 'A small page that combines buttons and checkboxes into a focused task list.',
+    route: '/pages/todo-app',
+    copyPath: 'src/pages/todo-app',
+    usage: '<TodoApp />',
+    Preview: TodoAppPreview,
+  },
+]
+
+export const showcaseCatalog: ShowcaseItem[] = [...componentCatalog, ...pageCatalog]

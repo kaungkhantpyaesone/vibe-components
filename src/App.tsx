@@ -1,6 +1,6 @@
-import { HashRouter, Link, NavLink, Navigate, Outlet, Route, Routes, useParams } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { componentCatalog } from './componentCatalog'
+import { HashRouter, Link, NavLink, Navigate, Outlet, Route, Routes, useParams } from 'react-router-dom'
+import { componentCatalog, pageCatalog, showcaseCatalog, type ShowcaseItem } from './componentCatalog'
 
 function AppShell() {
   return (
@@ -9,20 +9,20 @@ function AppShell() {
         <p className="eyebrow">Vibe Components</p>
         <div className="hero__content">
           <div>
-            <h1>Copy-friendly React components</h1>
+            <h1>Copy-friendly React UI building blocks</h1>
             <p className="hero__lede">
-              A tiny gallery of TypeScript components that live in self-contained folders and
-              route to their own demos.
+              A tiny gallery of TypeScript components and pages that live in self-contained
+              folders and route to their own demos.
             </p>
           </div>
           <nav className="hero__nav" aria-label="Component navigation">
-            {componentCatalog.map((component) => (
+            {showcaseCatalog.map((component) => (
               <NavLink
-                key={component.slug}
+                key={component.route}
                 className={({ isActive }) => (isActive ? 'hero__link hero__link--active' : 'hero__link')}
                 to={component.route}
               >
-                {component.name}
+                {component.kind === 'page' ? `Page · ${component.name}` : component.name}
               </NavLink>
             ))}
           </nav>
@@ -35,34 +35,56 @@ function AppShell() {
   )
 }
 
-function GalleryPage() {
+function GallerySection({ items, title }: { items: ShowcaseItem[]; title: string }) {
   return (
-    <section className="gallery">
-      {componentCatalog.map((component) => (
-        <article className="gallery-card" key={component.slug}>
-          <div className="gallery-card__preview">
-            <component.Preview />
-          </div>
-          <div className="gallery-card__body">
-            <div>
-              <h2>{component.name}</h2>
-              <p>{component.description}</p>
+    <section className="gallery-section">
+      <div className="gallery-section__header">
+        <p className="eyebrow">{title}</p>
+      </div>
+      <div className="gallery">
+        {items.map((component) => (
+          <article className="gallery-card" key={component.route}>
+            <div className="gallery-card__preview">
+              <component.Preview />
             </div>
-            <Link className="gallery-card__link" to={component.route}>
-              View route
-            </Link>
-          </div>
-        </article>
-      ))}
+            <div className="gallery-card__body">
+              <div>
+                <h2>{component.name}</h2>
+                <p>{component.description}</p>
+              </div>
+              <Link className="gallery-card__link" to={component.route}>
+                View route
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
     </section>
   )
 }
 
-function ComponentRoute() {
-  const { componentId } = useParams()
-  const component = componentCatalog.find((entry) => entry.slug === componentId)
+function GalleryPage() {
+  return (
+    <>
+      <GallerySection items={componentCatalog} title="Components" />
+      <GallerySection items={pageCatalog} title="Pages" />
+    </>
+  )
+}
 
-  if (!component) {
+function DetailRoute({
+  catalog,
+  eyebrow,
+  itemIdParam,
+}: {
+  catalog: ShowcaseItem[]
+  eyebrow: string
+  itemIdParam: 'componentId' | 'pageId'
+}) {
+  const params = useParams()
+  const item = catalog.find((entry) => entry.slug === params[itemIdParam])
+
+  if (!item) {
     return <Navigate to="/" replace />
   }
 
@@ -73,18 +95,18 @@ function ComponentRoute() {
       </Link>
       <div className="detail-card__header">
         <div>
-          <p className="eyebrow">Component route</p>
-          <h2>{component.name}</h2>
-          <p>{component.description}</p>
+          <p className="eyebrow">{eyebrow}</p>
+          <h2>{item.name}</h2>
+          <p>{item.description}</p>
         </div>
-        <code>{component.copyPath}</code>
+        <code>{item.copyPath}</code>
       </div>
       <div className="detail-card__preview">
-        <component.Preview />
+        <item.Preview />
       </div>
       <div className="detail-card__usage">
         <h3>Usage</h3>
-        <pre>{component.usage}</pre>
+        <pre>{item.usage}</pre>
       </div>
     </section>
   )
@@ -106,7 +128,14 @@ function AppRoutes() {
     <Routes>
       <Route element={<AppShell />}>
         <Route index element={<GalleryPage />} />
-        <Route path="components/:componentId" element={<ComponentRoute />} />
+        <Route
+          path="components/:componentId"
+          element={<DetailRoute catalog={componentCatalog} eyebrow="Component route" itemIdParam="componentId" />}
+        />
+        <Route
+          path="pages/:pageId"
+          element={<DetailRoute catalog={pageCatalog} eyebrow="Page route" itemIdParam="pageId" />}
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
