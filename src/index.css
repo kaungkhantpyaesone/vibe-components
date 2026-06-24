@@ -126,6 +126,19 @@ pre {
 
 .page {
   padding-bottom: 4rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.gallery-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .gallery {
