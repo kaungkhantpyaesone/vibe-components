@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { ComponentType } from 'react'
 import { ButtonPreview, TogglePreview } from './componentPreviews'
 
 type ComponentDefinition = {
@@ -8,7 +8,7 @@ type ComponentDefinition = {
   route: string
   copyPath: string
   usage: string
-  preview: () => ReactElement
+  Preview: ComponentType
 }
 
 export const componentCatalog: ComponentDefinition[] = [
@@ -19,7 +19,7 @@ export const componentCatalog: ComponentDefinition[] = [
     route: '/components/button',
     copyPath: 'src/components/button',
     usage: "<Button type=\"button\">Primary action</Button>",
-    preview: ButtonPreview,
+    Preview: ButtonPreview,
   },
   {
     slug: 'toggle',
@@ -29,6 +29,6 @@ export const componentCatalog: ComponentDefinition[] = [
     copyPath: 'src/components/toggle',
     usage:
       "<Toggle label=\"Email alerts\" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} />",
-    preview: TogglePreview,
+    Preview: TogglePreview,
   },
 ]

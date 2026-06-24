@@ -19,7 +19,7 @@ function AppShell() {
             {componentCatalog.map((component) => (
               <NavLink
                 key={component.slug}
-                className="hero__link"
+                className={({ isActive }) => (isActive ? 'hero__link hero__link--active' : 'hero__link')}
                 to={component.route}
               >
                 {component.name}
@@ -40,7 +40,9 @@ function GalleryPage() {
     <section className="gallery">
       {componentCatalog.map((component) => (
         <article className="gallery-card" key={component.slug}>
-          <div className="gallery-card__preview">{component.preview()}</div>
+          <div className="gallery-card__preview">
+            <component.Preview />
+          </div>
           <div className="gallery-card__body">
             <div>
               <h2>{component.name}</h2>
@@ -77,7 +79,9 @@ function ComponentRoute() {
         </div>
         <code>{component.copyPath}</code>
       </div>
-      <div className="detail-card__preview">{component.preview()}</div>
+      <div className="detail-card__preview">
+        <component.Preview />
+      </div>
       <div className="detail-card__usage">
         <h3>Usage</h3>
         <pre>{component.usage}</pre>
