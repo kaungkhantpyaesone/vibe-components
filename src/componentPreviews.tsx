@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from './components/button'
 import { Carousel } from './components/carousel'
 import { Checkbox } from './components/checkbox'
+import { LunarPhase } from './components/lunar-phase'
 import { Toggle } from './components/toggle'
 import { TodoApp } from './pages/todo-app'
 
@@ -71,4 +72,8 @@ export function CarouselPreview() {
       </Carousel>
     </div>
   )
+}
+
+export function LunarPhasePreview() {
+  return <LunarPhase />
 }

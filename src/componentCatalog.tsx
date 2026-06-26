@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import { ButtonPreview, CarouselPreview, CheckboxPreview, TodoAppPreview, TogglePreview } from './componentPreviews'
+import { ButtonPreview, CarouselPreview, CheckboxPreview, LunarPhasePreview, TodoAppPreview, TogglePreview } from './componentPreviews'
 
 export type ShowcaseItem = {
   kind: 'component' | 'page'
@@ -13,6 +13,17 @@ export type ShowcaseItem = {
 }
 
 export const componentCatalog: ShowcaseItem[] = [
+  {
+    kind: 'component',
+    slug: 'lunar-phase',
+    name: 'Lunar Phase',
+    description:
+      'Displays the current moon phase using NASA SVS imagery, with phase name, illumination percentage, and an 8-step cycle indicator.',
+    route: '/components/lunar-phase',
+    copyPath: 'src/components/lunar-phase',
+    usage: '<LunarPhase />\n\n{/* or pass a specific date */}\n<LunarPhase date={new Date(\'2024-12-15\')} />',
+    Preview: LunarPhasePreview,
+  },
   {
     kind: 'component',
     slug: 'carousel',
