@@ -1,0 +1,154 @@
+.lunar-phase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 2rem;
+  background: #0a0e1a;
+  border-radius: 1.5rem;
+  color: #e2e8f0;
+  font-family: inherit;
+  max-width: 52rem;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .lunar-phase {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Image ─────────────────────────────────────────────────────────────── */
+.lunar-phase__image-wrap {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 40px rgba(200, 210, 255, 0.12),
+    inset 0 0 60px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 18rem;
+  justify-self: center;
+}
+
+.lunar-phase__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+.lunar-phase__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.lunar-phase__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+}
+
+.lunar-phase__date {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.lunar-phase__illumination {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  color: #cbd5e1;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.lunar-phase__name {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  line-height: 1.1;
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+.lunar-phase__desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+/* ── Phase progress pips ───────────────────────────────────────────────── */
+.lunar-phase__progress {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.lunar-phase__pip {
+  width: 1.8rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: background 200ms ease;
+  overflow: visible;
+}
+
+.lunar-phase__pip:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.lunar-phase__pip--active {
+  background: #c7d2fe;
+  box-shadow: 0 0 8px rgba(199, 210, 254, 0.5);
+}
+
+.lunar-phase__pip-label {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  white-space: nowrap;
+  background: #1e2332;
+  color: #cbd5e1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.lunar-phase__pip:hover .lunar-phase__pip-label,
+.lunar-phase__pip--active .lunar-phase__pip-label {
+  opacity: 1;
+}
+
+/* ── Credit ────────────────────────────────────────────────────────────── */
+.lunar-phase__credit {
+  margin: 0;
+  margin-top: auto;
+  font-size: 0.72rem;
+  color: #475569;
+}
+
+.lunar-phase__credit a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.lunar-phase__credit a:hover {
+  text-decoration: underline;
+}

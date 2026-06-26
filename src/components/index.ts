@@ -1,4 +1,5 @@
 export * from './button'
 export * from './carousel'
 export * from './checkbox'
+export * from './lunar-phase'
 export * from './toggle'
