@@ -16,25 +16,40 @@ export function Carousel({ children, interval = 10_000 }: CarouselProps) {
   const [progress, setProgress] = useState(0)
   const startRef = useRef(Date.now())
   const rafRef = useRef(0)
+  const safeInterval = Math.max(interval, 1)
 
   useEffect(() => {
+    if (count === 0) {
+      setActiveIndex(0)
+      return
+    }
+
+    setActiveIndex((prev) => (prev >= count ? 0 : prev))
+  }, [count])
+
+  useEffect(() => {
+    if (count <= 1) {
+      setProgress(0)
+      return
+    }
+
     startRef.current = Date.now()
     setProgress(0)
 
     const tick = () => {
       const elapsed = Date.now() - startRef.current
-      const p = Math.min(elapsed / interval, 1)
+      const p = Math.min(elapsed / safeInterval, 1)
       setProgress(p)
       if (p < 1) {
         rafRef.current = requestAnimationFrame(tick)
       } else {
-        setActiveIndex((prev) => (prev + 1) % count)
+        setActiveIndex((prev) => (prev + 1 >= count ? 0 : prev + 1))
       }
     }
 
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
-  }, [activeIndex, interval, count])
+  }, [activeIndex, safeInterval, count])
 
   return (
     <div aria-roledescription="carousel" className="carousel">
