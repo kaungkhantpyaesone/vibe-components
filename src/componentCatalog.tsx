@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import { ButtonPreview, CheckboxPreview, TodoAppPreview, TogglePreview } from './componentPreviews'
+import { ButtonPreview, CarouselPreview, CheckboxPreview, TodoAppPreview, TogglePreview } from './componentPreviews'
 
 export type ShowcaseItem = {
   kind: 'component' | 'page'
@@ -13,6 +13,16 @@ export type ShowcaseItem = {
 }
 
 export const componentCatalog: ShowcaseItem[] = [
+  {
+    kind: 'component',
+    slug: 'carousel',
+    name: 'Carousel',
+    description: 'An auto-rotating card carousel with dot navigation and a per-dot progress ring showing time until the next slide.',
+    route: '/components/carousel',
+    copyPath: 'src/components/carousel',
+    usage: '<Carousel>\n  <MyCard />\n  <MyOtherCard />\n  <AnotherCard />\n</Carousel>',
+    Preview: CarouselPreview,
+  },
   {
     kind: 'component',
     slug: 'button',
